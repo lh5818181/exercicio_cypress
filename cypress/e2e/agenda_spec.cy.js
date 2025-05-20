@@ -13,13 +13,29 @@ describe('teste para a agenda', () => {
 
     })
 
-    it('deve editar um contato existente', () => {
-        cy.contains('Luis').parent().find('.sc-iAEyYk > :nth-child(4)')
-        
-        // cy.get('input[placeholder="Nome"]').clear().type('Luis Henrique')
-        // cy.get('button').contains('Salvar').click()
-        // cy.contains('Luis Henrique').should('exist')
-    })
+it('deve editar um contato existente', () => {
+  cy.contains('Luis')
+    .closest('div.sc-dmqHEX')
+    cy.get(':nth-child(5) > .sc-gueYoa > .edit')
+    .click() 
+  
+  cy.get('input[placeholder="Nome"]')
+    .clear()
+    .type('Luis Henrique')
+  cy.get('button').contains('Salvar').click()
+  cy.contains('Luis Henrique').should('exist')
+})
+
+it('deve remover um contato existente', () => {
+    cy.contains('Luis Henrique')  
+      .closest('.contato')
+      .within(() => {
+        cy.get('button.delete').click()
+      })
+
+    cy.contains('Luis Henrique').should('not.exist')
+  })
+
 
 
 })
